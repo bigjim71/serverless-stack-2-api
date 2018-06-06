@@ -1,4 +1,4 @@
-esources:
+Resources:
   NotesTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -18,4 +18,5 @@ esources:
       ProvisionedThroughput:
         ReadCapacityUnits: ${self:custom.tableThroughput}
         WriteCapacityUnits: ${self:custom.tableThroughput}
+
 
