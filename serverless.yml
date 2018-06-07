@@ -21,6 +21,8 @@ custom:
     webpackConfig: ./webpack.config.js
     includeModules: true
   environment: ${file(env.yml):${self:custom.stage}, file(env.yml):default}
+  serverless-offline:
+    resourceRoutes:true
 
 provider:
   name: aws
@@ -117,6 +119,13 @@ functions:
           cors: true
           authorizer: aws_iam
 
+  billing:
+    handler: billing.main
+    events:
+      - http:
+          path: billing
+          method: post
+
 # Create our resources with separate CloudFormation templates
 resources:
   # DynamoDB
@@ -126,12 +135,4 @@ resources:
   # Cognito
   - ${file(resources/cognito-user-pool.yml)}
   - ${file(resources/cognito-identity-pool.yml)}
-  billing:
-    handler: billing.main
-    events:
-      - http:
-          path: billing
-          method: post
-          cors: true
-          authorizer: aws_iam
 

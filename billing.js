@@ -11,6 +11,10 @@ export async function main(event, context, callback) {
   const stripe = stripePackage(process.env.stripeSecretKey);
 
   try {
+    console.log("calling stripe with key: %s", (process.env.stripeSecretKey));
+    console.log("source: %s", (source));
+    console.log("amount: %s", (amount));
+
     await stripe.charges.create({
       source,
       amount,
